@@ -20,32 +20,32 @@
       "commandName": "Project",
       "commandLineArgs": "--always-success php -r \"exit(rand(1,255));\""
     },
-    "output": {
-      "commandName": "Project",
-      "commandLineArgs": "cmd /c date /t"
-    },
-    "output SUPPRESSED": {
-      "commandName": "Project",
-      "commandLineArgs": "--no-output cmd /c date /t"
-    },
     "current working directory": {
       "commandName": "Project",
-      "commandLineArgs": "cmd /c echo %cd%"
+      "commandLineArgs": "cmd /c msg * %cd%"
     },
     "ALTER working directory": {
       "commandName": "Project",
-      "commandLineArgs": "--working-directory \"c:\\program files\" cmd /c echo %cd%"
+      "commandLineArgs": "--working-directory \"c:\\program files\" cmd /c msg * %cd%"
     },
     "no program error": {
       "commandName": "Project"
     },
     "test newlines/stdout/stderr/stdin (future todo)": {
       "commandName": "Project",
-      "commandLineArgs": "cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; pause ; ping -n 4 localhost \""
+      "commandLineArgs": "--show-output cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; pause ; ping -n 4 localhost \""
     },
     "test newlines/stdout/stderr": {
       "commandName": "Project",
-      "commandLineArgs": "cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; ping -n 4 localhost \""
+      "commandLineArgs": "--show-output cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; ping -n 4 localhost \""
+    },
+    "output suppressed": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c date /t"
+    },
+    "output SHOWN": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output cmd /c date /t"
     }
   }
 }

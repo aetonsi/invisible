@@ -25,7 +25,7 @@ Func<string, string[], string, bool, Process> invisible_process = (program, args
 int exitCode = 0;
 string[] invocationArguments = Environment.GetCommandLineArgs().Skip(1).ToArray();
 string working_dir = Directory.GetCurrentDirectory();
-bool no_output = false;
+bool no_output = true;
 bool always_success = false;
 bool dont_wait = false;
 
@@ -37,7 +37,7 @@ while (invocationArguments.Length > 0 && invocationArguments[0].StartsWith("--")
         case "--": goto stop_args;
         case "--help": goto print_help;
         case "--working-directory": working_dir = invocationArguments[1]; to_shift = 2; break;
-        case "--no-output": no_output = true; break;
+        case "--show-output": no_output = false; break;
         case "--always-success": always_success = true; break;
         case "--dont-wait": dont_wait = true; break;
         default: Console.Error.WriteLine($"Unrecognized option: {invocationArguments[0]}"); Environment.Exit(1); break;
@@ -48,7 +48,7 @@ stop_args:;
 
 if (invocationArguments.Length == 0)
 {
-    if (!no_output) Console.Error.WriteLine("No executable specified. Showing --help.\n");
+    Console.Error.WriteLine("No executable specified. Showing --help.\n");
     if (!always_success) exitCode = 1;
     goto print_help;
 }
@@ -81,20 +81,20 @@ Environment.Exit(exitCode);
 print_help:;
 string f = Path.GetFileName(__FILE__);
 // TODO #helptxt8548745 move help to txt template file
-Console.WriteLine(f + "\n\nInvokes a program without creating a window." +
+Console.WriteLine(f + "\n\nInvokes a program silently." +
     "\nFeatures:" +
     "\n- can be passed any number of arguments to the program" +
     "\n- can locate the executable via relative path, absolute path, or the system's PATH" +
-    "\n- runs the program in the current directory (or the given directory, with parameter)" +
-    "\n- waits for the program to be over (or doesn't, with parameter)" +
-    "\n- exits with the invocation's exit code (or doesn't, with parameter)" +
-    "\n- outputs the invocation's output (or doesn't, with parameter)" +
+    "\n- runs the program in the current directory (or the given directory, via parameter)" +
+    "\n- waits for the program to be over (or doesn't, via parameter)" +
+    "\n- exits with the invocation's exit code (or doesn't, via parameter)" +
+    "\n- if requested via parameter, outputs the invocation's output" +
     "\n\nUsage:" +
     "\n    " + f + " [parameters] executable [executable arguments]" +
     "\n\nParameters: " +
     "\n    [--]                                   stops parsing arguments and start parsing executable" +
     "\n    [--working-directory directory]        runs the program in the given directory" +
-    "\n    [--no-output]                          completely suppresses the invocation's shell output" +
+    "\n    [--show-output]                        shows the invocation's shell output" +
     "\n    [--always-success]                     always quits with exit code 0, ignoring the invocation's exit code" +
     "\n    [--dont-wait]                          doesn't wait for the invoked program to be over, immediately quits with exit code 0" +
     "\n\nUsage examples:" +
