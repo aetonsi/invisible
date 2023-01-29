@@ -1,0 +1,51 @@
+{
+  "profiles": {
+    "--help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
+    },
+    "msg.exe WAIT": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c msg /v /w * my message"
+    },
+    "msg.exe NO wait": {
+      "commandName": "Project",
+      "commandLineArgs": "--dont-wait cmd /c msg /v /w * my message NO WAIT"
+    },
+    "errorlevel": {
+      "commandName": "Project",
+      "commandLineArgs": "php -r \"exit(rand(1,255));\""
+    },
+    "errorlevel ALWAYS SUCCESS": {
+      "commandName": "Project",
+      "commandLineArgs": "--always-success php -r \"exit(rand(1,255));\""
+    },
+    "output": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c date /t"
+    },
+    "output SUPPRESSED": {
+      "commandName": "Project",
+      "commandLineArgs": "--no-output cmd /c date /t"
+    },
+    "current working directory": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c echo %cd%"
+    },
+    "ALTER working directory": {
+      "commandName": "Project",
+      "commandLineArgs": "--working-directory \"c:\\program files\" cmd /c echo %cd%"
+    },
+    "no program error": {
+      "commandName": "Project"
+    },
+    "test newlines/stdout/stderr/stdin (future todo)": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; pause ; ping -n 4 localhost \""
+    },
+    "test newlines/stdout/stderr": {
+      "commandName": "Project",
+      "commandLineArgs": "cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; ping -n 4 localhost \""
+    }
+  }
+}
