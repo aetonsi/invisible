@@ -9,7 +9,7 @@ Func<string, string[], string, bool, Process> invisible_process = (program, args
         WorkingDirectory = working_dir,
         UseShellExecute = false,
         CreateNoWindow = true,
-        RedirectStandardInput = false, // TODO allow standard input somehow?
+        RedirectStandardInput = false, // TODO #stdin8542102154 allow standard input somehow?
         RedirectStandardOutput = redirectStreams,
         RedirectStandardError = redirectStreams,
         WindowStyle = ProcessWindowStyle.Hidden,
@@ -80,7 +80,7 @@ Environment.Exit(exitCode);
 
 print_help:;
 string f = Path.GetFileName(__FILE__);
-// TODO move help to txt template file
+// TODO #helptxt8548745 move help to txt template file
 Console.WriteLine(f + "\n\nInvokes a program without creating a window." +
     "\nFeatures:" +
     "\n- can be passed any number of arguments to the program" +
