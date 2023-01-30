@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 
 string __FILE__ = System.Environment.ProcessPath ?? Process.GetCurrentProcess().ProcessName;
-Func<string, string[], string, bool, Process> invisible_process = (program, args, working_dir, redirectStreams) =>
+Func<string, string[], string, bool, Process> my_process = (program, args, working_dir, redirectStreams) =>
 {
     ProcessStartInfo psi = new ProcessStartInfo
     {
@@ -56,7 +56,7 @@ if (invocationArguments.Length == 0)
 string program = invocationArguments[0];
 string[] program_args = invocationArguments.Skip(1).ToArray();
 
-Process p = invisible_process(program, program_args, working_dir, !no_output);
+Process p = my_process(program, program_args, working_dir, !no_output);
 p.Start();
 
 if (!dont_wait)
