@@ -106,5 +106,7 @@ Console.WriteLine(f + "\n\nInvokes a program silently." +
     "\n    " + f + " c:\\absolute\\path\\to\\php.exe -r \"file_put_contents('my_output_file.txt', \\\"double quoted string with spaces\\\");\"" +
     "\n\nPLEASE NOTE:" +
     "\nYou have to C-style escape double quotes if you want to pass them literally to the executable, like the php example above. Please also take into consideration the current shell's escape rules for quotes." +
+    "\n\nPLEASE NOTE:" +
+    "\nDue to output buffering differences between stdout and stderr, if the invocation sends data to both streams, --show-output will probably print things NOT in the correct order. The only way to be sure to have order, is to have a single stream, that is, merging the streams with redirection with 2>&1 (remember to escape this correctly)." +
     "");
 Environment.Exit(exitCode);
