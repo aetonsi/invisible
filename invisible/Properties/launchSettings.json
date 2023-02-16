@@ -20,21 +20,6 @@
       "commandName": "Project",
       "commandLineArgs": "--always-success php -r \"exit(rand(1,255));\""
     },
-    "current working directory": {
-      "commandName": "Project",
-      "commandLineArgs": "cmd /c msg * %cd%"
-    },
-    "ALTER working directory": {
-      "commandName": "Project",
-      "commandLineArgs": "--working-directory \"c:\\program files\" cmd /c msg * %cd%"
-    },
-    "no program error": {
-      "commandName": "Project"
-    },
-    "test newlines/stdout/stderr/stdin (future todo)": {
-      "commandName": "Project",
-      "commandLineArgs": "--show-output cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; pause ; ping -n 4 localhost \""
-    },
     "test newlines/stdout/stderr": {
       "commandName": "Project",
       "commandLineArgs": "--show-output cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; ping -n 4 localhost \""
@@ -46,6 +31,29 @@
     "output SHOWN": {
       "commandName": "Project",
       "commandLineArgs": "--show-output cmd /c date /t"
+    },
+    "[args error] no program": {
+      "commandName": "Project"
+    },
+    "CUSTOM working directory": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output --working-directory \"c:\\program files\" cmd /c echo CD=%cd%"
+    },
+    "test newlines/stdout/stderr/STDIN (future todo)": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output cmd /c pwsh -c \"echo 'newline1'; printer 'not' ; printer 'newline' ; write-error ERR ; pause ; ping -n 4 localhost \""
+    },
+    "--stdout --stderr and output to console": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output --stdout out.txt --stderr err.txt cmd /c datetime & php -r \"fwrite(STDERR, 'STDERR: '.(new datetime())->format('c'));\""
+    },
+    "verify bin.data integrity": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output php -r \"var_dump(file_get_contents('bin.data') === 'BOM='.chr(0xef).chr(0xbb).chr(0xbf));\""
+    },
+    "output binary data to file bin.data": {
+      "commandName": "Project",
+      "commandLineArgs": "--show-output --stdout bin.data php -r \"echo('BOM='.chr(0xef).chr(0xbb).chr(0xbf));\""
     }
   }
 }
