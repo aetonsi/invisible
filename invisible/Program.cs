@@ -1,3 +1,5 @@
+﻿// TODO #CLIWRAP implement everything via https://github.com/Tyrrrz/CliWrap !!!
+
 ﻿using System.Diagnostics;
 
 string __FILE__ = System.Environment.ProcessPath ?? Process.GetCurrentProcess().ProcessName;
