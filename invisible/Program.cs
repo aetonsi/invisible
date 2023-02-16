@@ -1,10 +1,14 @@
 ﻿using CliWrap;
 using System.Diagnostics;
 
+string? __FILE__ = System.Environment.ProcessPath ?? Process.GetCurrentProcess().ProcessName;
+string? __PROJECT_NAME__ = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+string? __PROJECT_VERSION__ = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString() ?? "UNKNOWN";
+
+
 ////// default values
 string working_dir = Directory.GetCurrentDirectory();
 bool show_output = false;
-bool always_success = false;
 bool wait_for_exit = true;
 string? stdout_file = null;
 string? stderr_file = null;
@@ -18,12 +22,12 @@ while (invocationArguments.Length > 0 && invocationArguments[0].StartsWith("--")
     switch (invocationArguments[0])
     {
         case "--": goto stop_args;
+        case "--version": Console.WriteLine(__PROJECT_NAME__ + " v" + __PROJECT_VERSION__); Environment.Exit(0); break;
         case "--help": goto print_help;
         case "--working-directory": working_dir = invocationArguments[1]; to_shift = 2; break;
         case "--show-output": show_output = true; break;
         case "--stdout": stdout_file = invocationArguments[1]; to_shift = 2; break;
         case "--stderr": stderr_file = invocationArguments[1]; to_shift = 2; break;
-        case "--always-success": always_success = true; break;
         case "--dont-wait": wait_for_exit = false; break;
         default: Console.Error.WriteLine($"Unrecognized option: {invocationArguments[0]}"); Environment.Exit(1); break;
     }
@@ -71,7 +75,7 @@ else
     task = cmd.ExecuteAsync();
 }
 
-int exit_code = always_success || !wait_for_exit ? 0 : result.ExitCode;
+int exit_code = !wait_for_exit ? 0 : result.ExitCode;
 Environment.Exit(exit_code);
 
 
@@ -80,7 +84,7 @@ Environment.Exit(exit_code);
 
 
 print_help:;
-string f = Path.GetFileName(System.Environment.ProcessPath ?? Process.GetCurrentProcess().ProcessName);
+string f = Path.GetFileName(__FILE__ + " - " + __PROJECT_NAME__ + " v" + __PROJECT_VERSION__);
 // TODO #helptxt8548745 move help to txt template file
 Console.WriteLine(f +
     "\n\nInvokes a program silently." +
@@ -94,15 +98,16 @@ Console.WriteLine(f +
     "\n    " + f + " [parameters] executable [executable arguments]" +
     "\n\nParameters: " +
     "\n    [--]                                   stops parsing arguments and start parsing executable" +
+    "\n    [--version]                            prints version" +
+    "\n    [--help]                               prints help" +
     "\n    [--working-directory <directory>]      runs the program with the given starting directory" +
     "\n    [--show-output]                        prints the invocation's output to console (both stdout and stderr)" +
     "\n    [--stdout <filepath>]                  appends the stdout stream to the given file" +
     "\n    [--stderr <filepath>]                  appends the stderr stream to the given file" +
-    "\n    [--always-success]                     always quits with exit code 0, ignoring the invocation's exit code" +
     "\n    [--dont-wait]                          doesn't wait for the invoked program to be over, immediately quits with exit code 0" +
     "\n\nUsage examples (NB: escape special characters according to your shell's rules):" +
     "\n    " + f + " myprogram --with -its /arguments list" +
-    "\n    " + f + " --always-success --dont-wait -- myscript.cmd /with /args" +
+    "\n    " + f + " --dont-wait -- myscript.cmd /with /args" +
     "\n    " + f + " ..\\some\\program\\relative\\to\\the\\current\\directory.exe" +
     "\n    " + f + " cmd /c shutdown /p" +
     "\n    " + f + " --stdout out.txt --stderr err.txt --show-output cmd /c \"echo my output & echo my err >&2\"" +

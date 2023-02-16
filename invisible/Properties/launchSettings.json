@@ -54,6 +54,10 @@
     "output binary data to file bin.data": {
       "commandName": "Project",
       "commandLineArgs": "--show-output --stdout bin.data php -r \"echo('BOM='.chr(0xef).chr(0xbb).chr(0xbf));\""
+    },
+    "--version": {
+      "commandName": "Project",
+      "commandLineArgs": "--version"
     }
   }
 }
